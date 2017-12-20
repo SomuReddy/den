@@ -1,0 +1,32 @@
+*** Settings ***
+Documentation  Test for searching a product and add to cart
+Library  SeleniumLibrary
+
+*** Variables ***
+
+
+*** Test Cases ***
+User must open a browser and search for a product in Flipkart
+    [Documentation]  Test for searching and adding a product to cart
+    [Tags]  smoke
+    Open Browser  https:www.flipkart.com  firefox
+    Wait Until Page Contains  Sell on Flipkart
+    Input Text  xpath://input[@title='Search for products, brands and more']  iPhone 8
+    Click Button  //button[@type='submit']
+    Wait Until Page Contains  results for "iphone 8"
+    Click Element  //div[text()='Apple iPhone 8 Plus (Space Grey, 64 GB)']
+    #Switch Browser  2
+    Wait Until Page Contains  Back to search results for "iphone 8"
+    Click Element  id:add-to-cart-button
+    Wait Until Page Contains  Added to Cart
+    Click Element  Proceed to checkout
+    Sleep  3s
+
+Close Browser
+
+
+
+
+*** Keywords ***
+Close Browser
+    Close Browser
